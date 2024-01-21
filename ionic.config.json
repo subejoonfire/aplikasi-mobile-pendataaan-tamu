@@ -1,0 +1,7 @@
+{
+  "name": "pendataan-tamu",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
