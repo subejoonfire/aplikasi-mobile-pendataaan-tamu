@@ -1,20 +1,84 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Halaman Utama </ion-title>
+    <ion-button
+      [routerLink]="['/tamu']"
+      routerLinkActive="router-link-active"
+      slot="end"
+      expand="block"
+      fill="clear"
+      shape="round"
+    >
+      Tamu
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-item>
+    <ion-label>Perihal</ion-label>
+    <ion-input type="text" placeholder="Awesome Input" [(ngModel)]="perihalEdit.perihal" name="perihal"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Tamu</ion-label
+    ><ion-select
+      multiple="false"
+      placeholder="Pilih Tamu"
+      [(ngModel)]="perihalEdit.idtamu"
+    >
+      <ion-select-option *ngFor="let item of tamuList" [value]="item.idtamu"
+        >{{ item.nama }}</ion-select-option
+      >
+    </ion-select>
+  </ion-item>
+  <ion-button (click)="tambahPerihal()" expand="block"> Click me </ion-button>
+  <ion-item-divider>
+    <ion-label>Daftar Perihal</ion-label>
+  </ion-item-divider>
+  <ion-list>
+    <ion-item>
+      <ion-label>Perihal</ion-label>
+      <ion-label>Tamu</ion-label>
+      <ion-label>Hapus</ion-label>
+      <ion-label>Edit</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let perihal of perihalList">
+      <ion-label>{{ perihal.perihal }}</ion-label>
+      <ion-label>{{ perihal.nama_tamu }}</ion-label>
+      <ion-label (click)="hapusPerihal(perihal.idperihal)">
+        <ion-icon slot="start" name="trash"></ion-icon>
+      </ion-label>
+      <ion-label (click)="tampilModal(perihal)">
+        <ion-icon slot="start" name="pencil"></ion-icon>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-modal [isOpen]="modalTerbuka">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()" >kembali</ion-button>
+          </ion-buttons>
+          <ion-title>Edit Perihal</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label>Nama Perihal</ion-label>
+          <ion-input [(ngModel)]="perihalEdit.perihal" type="text" placeholder="Nama Perihal"></ion-input>
+        </ion-item>
+        <<ion-item>
+          <ion-label>Tamu</ion-label>
+          <ion-select [(ngModel)]="perihalEdit.idtamu" placeholder="Pilih Tamu">
+            <ion-select-option *ngFor="let item of tamuList" [value]="item.idtamu">{{ item.nama }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button (click)="editPerihal()" expand="block">
+          Simpan Perubahan
+        </ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

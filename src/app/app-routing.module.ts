@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'tamu',
+    loadChildren: () => import('./tamu/tamu.module').then( m => m.TamuPageModule)
+  },
 ];
 
 @NgModule({
